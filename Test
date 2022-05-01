@@ -1,0 +1,228 @@
+import networkx as nx
+
+from XBWT_v23 import XBWT, Node, Tree, Xbwt_Edit_Distance
+import mp3treesim as mp3
+import graphviz
+from networkx.drawing import nx_agraph
+
+
+class Test(object):
+
+    def exportToGraphviz(self, tree, fileName):
+        sub = str.maketrans("0123456789", "₀₁₂₃₄₅₆₇₈₉")
+        G = graphviz.Digraph()
+        i = 0
+        for e in tree.getEdges():
+            if e[1].getLabel() == "$":
+                _str = str(i)
+                _str = _str.translate(sub)
+                G.edge(e[0].getLabel(), "$"+_str)
+                i += 1
+            else:
+                G.edge(e[0].getLabel(), e[1].getLabel())
+        G.save(fileName+".gv")
+
+    def importTreeFromGraphviz(self, fileName):
+       G = nx.Graph(nx_agraph.read_dot(fileName))
+       nodes = list(G.nodes)
+       node_label = {}
+       for node in nodes:
+           node_label[node] = Node(node)
+       edges = list(G.edges)
+       tree = Tree()
+       tree.insert(node_label[edges[0][0]], None)
+       for edge in edges:
+           tree.insert(node_label[edge[1]], node_label[edge[0]])
+       return tree
+    
+if __name__ == "__main__":
+
+    # Dichiarazione nodi 
+
+    root=Node('Q')
+    n1=Node('U')
+    n2=Node('X')
+    n3=Node('V')
+    n4=Node('W')
+    n5=Node('P')
+    n6=Node('$')
+    n7=Node('O')
+    n8=Node('$')
+    n9=Node('D')
+    n10=Node('Z')
+    n11=Node('$')
+    n12=Node('E')
+    n13=Node('C')
+    n14=Node('L')
+    n15=Node('$')
+    n16=Node('B')
+    n17=Node('$')
+    n18=Node('J')
+    n19=Node('$')
+    n20=Node('S')
+    n21=Node('M')
+    n22=Node('$')
+    n23=Node('R')
+    n24=Node('$')
+    n25=Node('A')
+    n26=Node('I')
+    n27=Node('$')
+    n28=Node('N')
+    n29=Node('$')
+    n30=Node('G')
+    n31=Node('K')
+    n32=Node('H')
+    n33=Node('$')
+    n34=Node('Y')
+    n35=Node('F')
+    n36=Node('$')
+    n37=Node('T')
+    n38=Node('$')
+
+
+    # Inserimento nodi dell'albero
+
+    tree=Tree()
+    tree.insert(root, None)
+    tree.insert(n1, root)
+    tree.insert(n2, n1)
+    tree.insert(n30, n1)
+    tree.insert(n3, n2)
+    tree.insert(n12, n2)
+    tree.insert(n25, n2)
+    tree.insert(n31, n30)
+    tree.insert(n34, n30)
+    tree.insert(n4, n3)
+    tree.insert(n9, n3)
+    tree.insert(n13, n12)
+    tree.insert(n20, n12)
+    tree.insert(n23, n12)
+    tree.insert(n26, n25)
+    tree.insert(n28, n25)
+    tree.insert(n32, n31)
+    tree.insert(n35, n34)
+    tree.insert(n37, n34)
+    tree.insert(n5, n4)
+    tree.insert(n7, n4)
+    tree.insert(n10, n9)
+    tree.insert(n14, n13)
+    tree.insert(n16, n13)
+    tree.insert(n18, n13)
+    tree.insert(n21, n20)
+    tree.insert(n6, n23)
+    tree.insert(n8, n26)
+    tree.insert(n11, n28)
+    tree.insert(n15, n32)
+    tree.insert(n17, n35)
+    tree.insert(n19, n37)
+    tree.insert(n22, n5)
+    tree.insert(n24, n7)
+    tree.insert(n27, n10)
+    tree.insert(n29, n14)
+    tree.insert(n33, n16)
+    tree.insert(n36, n18)
+    tree.insert(n38, n21)
+
+
+    # Dichiarazione nodi 
+
+    root=Node('Q')
+    n1=Node('U')
+    n2=Node('X')
+    n3=Node('V')
+    n4=Node('W')
+    n5=Node('P')
+    n6=Node('$')
+    n7=Node('O')
+    n8=Node('$')
+    n9=Node('D')
+    n10=Node('Z')
+    n11=Node('$')
+    n12=Node('E')
+    n13=Node('C')
+    n14=Node('L')
+    n15=Node('$')
+    n16=Node('B')
+    n17=Node('$')
+    n18=Node('J')
+    n19=Node('$')
+    n20=Node('S')
+    n21=Node('M')
+    n22=Node('$')
+    n23=Node('R')
+    n24=Node('$')
+    n25=Node('A')
+    n26=Node('I')
+    n27=Node('$')
+    n28=Node('N')
+    n29=Node('$')
+    n30=Node('G')
+    n31=Node('K')
+    n32=Node('$')
+    n33=Node('Y')
+    n34=Node('F')
+    n35=Node('$')
+    n36=Node('T')
+    n37=Node('$')
+
+
+    # Inserimento nodi dell'albero
+
+    tree2=Tree()
+    tree2.insert(root, None)
+    tree2.insert(n1, root)
+    tree2.insert(n2, n1)
+    tree2.insert(n30, n1)
+    tree2.insert(n3, n2)
+    tree2.insert(n12, n2)
+    tree2.insert(n25, n2)
+    tree2.insert(n31, n30)
+    tree2.insert(n33, n30)
+    tree2.insert(n4, n3)
+    tree2.insert(n9, n3)
+    tree2.insert(n13, n12)
+    tree2.insert(n20, n12)
+    tree2.insert(n23, n12)
+    tree2.insert(n26, n25)
+    tree2.insert(n28, n25)
+    tree2.insert(n34, n33)
+    tree2.insert(n36, n33)
+    tree2.insert(n5, n4)
+    tree2.insert(n7, n4)
+    tree2.insert(n10, n9)
+    tree2.insert(n14, n13)
+    tree2.insert(n16, n13)
+    tree2.insert(n18, n13)
+    tree2.insert(n21, n20)
+    tree2.insert(n6, n23)
+    tree2.insert(n8, n26)
+    tree2.insert(n11, n28)
+    tree2.insert(n15, n34)
+    tree2.insert(n17, n36)
+    tree2.insert(n19, n5)
+    tree2.insert(n22, n7)
+    tree2.insert(n24, n10)
+    tree2.insert(n27, n14)
+    tree2.insert(n29, n16)
+    tree2.insert(n32, n18)
+    tree2.insert(n35, n21)
+    tree2.insert(n37, n31)
+
+    test = Test()
+
+    test.exportToGraphviz(tree, "tree1rem")
+    test.exportToGraphviz(tree2, "tree2rem")
+
+    gv1 = mp3.read_dotfile('tree1rem.gv')
+    gv2 = mp3.read_dotfile('tree2rem.gv')
+
+    tree1 = test.importTreeFromGraphviz('tree1rem.gv')
+    tree2 = test.importTreeFromGraphviz('tree2rem.gv')
+
+    print(mp3.similarity(gv1, gv2))
+
+    print(Xbwt_Edit_Distance(tree1, tree2))
+
+
+
+
